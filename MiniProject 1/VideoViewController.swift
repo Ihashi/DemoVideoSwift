@@ -14,8 +14,10 @@ class VideoViewController: UIViewController
     var moviePlayer: AVPlayer?
     var playerLayer: AVPlayerLayer?
     let screenSize = UIScreen.mainScreen().bounds
-    var urls = ["http://techslides.com/demos/sample-videos/small.mp4",
-                "http://clips.vorwaerts-gmbh.de/VfE_html5.mp4"]
+    var urls = ["http://fun.siz.io/stories/142893791787803c7fb48f4d/0.mp4",
+                "http://fun.siz.io/stories/142893791787803c7fb48f4d/1.mp4",
+                "http://fun.siz.io/stories/142893791787803c7fb48f4d/2.mp4",
+                "http://fun.siz.io/stories/142893791787803c7fb48f4d/3.mp4"]
 //                "http://static.siz.io/sequences/SxbF163N6NNL.mp4",
 //                "http://static.siz.io/sequences/igRJLNMZTu1h.mp4",
 //                "http://static.siz.io/sequences/dzoRiCq8BhhC.mp4"]
