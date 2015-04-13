@@ -53,11 +53,8 @@ class VideoViewController: UIViewController
         }
         else if(tmp == 0)
         {
-            let alert = UIAlertView()
-            alert.title = "Sorry"
-            alert.message = "It's the first video !"
-            alert.addButtonWithTitle("OK")
-            alert.show()
+            tmp = urls.count-1
+            playVideo()
         }
         
         println("Left button tapped")
@@ -72,11 +69,8 @@ class VideoViewController: UIViewController
         }
         else if(tmp == urls.count-1)
         {
-            let alert = UIAlertView()
-            alert.title = "Sorry"
-            alert.message = "It's the last video !"
-            alert.addButtonWithTitle("OK")
-            alert.show()
+            tmp = 0
+            playVideo()
         }
         
         println("Right button tapped")
