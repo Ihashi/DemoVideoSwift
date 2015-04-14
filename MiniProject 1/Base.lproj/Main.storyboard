@@ -17,9 +17,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="7cU-6c-nam" appends="YES" id="1mt-HJ-Har"/>
+                        </connections>
                     </view>
+                    <connections>
+                        <outlet property="videoView" destination="WUJ-1M-Fup" id="LOZ-bA-AOX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="blP-ne-pvE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="7cU-6c-nam">
+                    <connections>
+                        <action selector="changeVideo:" destination="EBC-UM-TCJ" id="ulE-1q-pRv"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="399" y="368"/>
         </scene>

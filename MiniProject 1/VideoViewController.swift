@@ -22,56 +22,86 @@ class VideoViewController: UIViewController
     
     var videoNumber = 0
     
+    private struct Constants
+    {
+        static let VideoGestureScale: CGFloat = 20
+    }
+    
+    @IBAction func changeVideo(gesture: UIPanGestureRecognizer)
+    {
+        switch gesture.state
+        {
+        case .Ended: fallthrough
+        case .Changed:
+            let translation = gesture.translationInView(videoView)
+            let viewChange = -Int(translation.x / Constants.VideoGestureScale)
+            
+            if(translation.x > 150)
+            {
+                moviePlayer!.pause()
+                
+                if(videoNumber < urls.count-1)
+                {
+                    videoNumber++
+                }
+                else if(videoNumber == urls.count-1)
+                {
+                    videoNumber = 0
+                }
+                
+                playVideo()
+                gesture.setTranslation(CGPointZero, inView: videoView)
+            }
+            else if (translation.x < -150)
+            {
+                moviePlayer!.pause()
+                
+                if(videoNumber > 0)
+                {
+                    videoNumber--
+                }
+                else if(videoNumber == 0)
+                {
+                    videoNumber = urls.count-1
+                }
+                
+                playVideo()
+                gesture.setTranslation(CGPointZero, inView: videoView)
+            }
+            
+            if viewChange != 0
+            {
+                println("\(translation.x)")
+            }
+            
+        default: break
+        }
+    }
+    
+    @IBOutlet weak var videoView: UIView!
+    {
+        didSet
+        {
+            videoView.addGestureRecognizer(UIPanGestureRecognizer(target:self, action: "changeVideo:"))
+        }
+    }
+    
     func displayButton()
     {
-        let leftButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
+        var leftButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         leftButton.frame = CGRectMake(0, (screenSize.width/2)-20, 80, 40)
         leftButton.backgroundColor = .blackColor()
-        leftButton.setTitle("Prev", forState: UIControlState.Normal)
+        leftButton.setTitle("<- Prev", forState: UIControlState.Normal)
         leftButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        leftButton.addTarget(self, action: "leftButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         
         let rightButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         rightButton.frame = CGRectMake((screenSize.height)-80, (screenSize.width/2)-20, 80, 40)
         rightButton.backgroundColor = .blackColor()
-        rightButton.setTitle("Next", forState: UIControlState.Normal)
+        rightButton.setTitle("Next ->", forState: UIControlState.Normal)
         rightButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        rightButton.addTarget(self, action: "rightButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
         
         self.view.addSubview(leftButton)
         self.view.addSubview(rightButton)
-    }
-    
-    func leftButtonAction(sender:UIButton!)
-    {
-        moviePlayer!.pause()
-        
-        if(videoNumber > 0)
-        {
-            videoNumber--
-        }
-        else if(videoNumber == 0)
-        {
-            videoNumber = urls.count-1
-        }
-        
-        playVideo()
-    }
-    
-    func rightButtonAction(sender:UIButton!)
-    {
-        moviePlayer!.pause()
-        
-        if(videoNumber < urls.count-1)
-        {
-            videoNumber++
-        }
-        else if(videoNumber == urls.count-1)
-        {
-            videoNumber = 0
-        }
-        
-        playVideo()
     }
     
     func playVideo()
@@ -84,7 +114,6 @@ class VideoViewController: UIViewController
         moviePlayer!.actionAtItemEnd = .None
         
         playerLayer!.frame = CGRect(x: 0, y: 0, width: screenSize.height, height: screenSize.width)
-        //playerLayer!.backgroundColor = UIColor.blackColor().CGColor
         self.view.backgroundColor = .blackColor()
         self.view.layer.addSublayer(playerLayer)
         
