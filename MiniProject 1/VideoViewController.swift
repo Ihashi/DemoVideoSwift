@@ -13,16 +13,14 @@ class VideoViewController: UIViewController
 {
     var moviePlayer: AVPlayer?
     var playerLayer: AVPlayerLayer?
+    var playerItem: AVPlayerItem?
     let screenSize = UIScreen.mainScreen().bounds
     var urls = ["http://fun.siz.io/stories/142893791787803c7fb48f4d/0.mp4",
                 "http://fun.siz.io/stories/142893791787803c7fb48f4d/1.mp4",
                 "http://fun.siz.io/stories/142893791787803c7fb48f4d/2.mp4",
                 "http://fun.siz.io/stories/142893791787803c7fb48f4d/3.mp4"]
-//                "http://static.siz.io/sequences/SxbF163N6NNL.mp4",
-//                "http://static.siz.io/sequences/igRJLNMZTu1h.mp4",
-//                "http://static.siz.io/sequences/dzoRiCq8BhhC.mp4"]
     
-    var tmp = 0
+    var videoNumber = 0
     
     func displayButton()
     {
@@ -35,7 +33,7 @@ class VideoViewController: UIViewController
         
         let rightButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
         rightButton.frame = CGRectMake((screenSize.height)-80, (screenSize.width/2)-20, 80, 40)
-        rightButton.backgroundColor = UIColor.blackColor()
+        rightButton.backgroundColor = .blackColor()
         rightButton.setTitle("Next", forState: UIControlState.Normal)
         rightButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         rightButton.addTarget(self, action: "rightButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
@@ -46,57 +44,57 @@ class VideoViewController: UIViewController
     
     func leftButtonAction(sender:UIButton!)
     {
-        if(tmp > 0)
+        moviePlayer!.pause()
+        
+        if(videoNumber > 0)
         {
-            tmp--
-            playVideo()
+            videoNumber--
         }
-        else if(tmp == 0)
+        else if(videoNumber == 0)
         {
-            tmp = urls.count-1
-            playVideo()
+            videoNumber = urls.count-1
         }
         
-        println("Left button tapped")
+        playVideo()
     }
     
     func rightButtonAction(sender:UIButton!)
     {
-        if(tmp < urls.count-1)
+        moviePlayer!.pause()
+        
+        if(videoNumber < urls.count-1)
         {
-            tmp++
-            playVideo()
+            videoNumber++
         }
-        else if(tmp == urls.count-1)
+        else if(videoNumber == urls.count-1)
         {
-            tmp = 0
-            playVideo()
+            videoNumber = 0
         }
         
-        println("Right button tapped")
+        playVideo()
     }
     
     func playVideo()
     {
-        println("\(tmp)")
-        var url = NSURL(string: urls[tmp])
-        moviePlayer = AVPlayer(URL: url)
-        playerLayer = AVPlayerLayer(player: moviePlayer)
+        var url = NSURL(string: urls[videoNumber])
         
+        playerItem = AVPlayerItem(URL: url)
+        moviePlayer = AVPlayer(playerItem: playerItem)
+        playerLayer = AVPlayerLayer(player: moviePlayer)
         moviePlayer!.actionAtItemEnd = .None
         
         playerLayer!.frame = CGRect(x: 0, y: 0, width: screenSize.height, height: screenSize.width)
-        
-        self.view.backgroundColor = UIColor.blackColor()
+        //playerLayer!.backgroundColor = UIColor.blackColor().CGColor
+        self.view.backgroundColor = .blackColor()
         self.view.layer.addSublayer(playerLayer)
         
-        moviePlayer?.play()
+        moviePlayer!.play()
         displayButton()
         
         NSNotificationCenter.defaultCenter().addObserver(self,
             selector: "restartVideo",
             name: AVPlayerItemDidPlayToEndTimeNotification,
-            object: moviePlayer?.currentItem)
+            object: moviePlayer!.currentItem)
     }
     
     func restartVideo()
