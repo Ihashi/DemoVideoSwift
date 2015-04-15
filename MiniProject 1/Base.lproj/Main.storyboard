@@ -3,19 +3,59 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Video View Controller-->
         <scene sceneID="WM7-tG-ipw">
             <objects>
-                <viewController id="EBC-UM-TCJ" customClass="VideoViewController" customModule="MiniProject_1" customModuleProvider="target" sceneMemberID="viewController">
+                <placeholder placeholderIdentifier="IBFirstResponder" id="blP-ne-pvE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController wantsFullScreenLayout="YES" id="EBC-UM-TCJ" customClass="VideoViewController" customModule="MiniProject_1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o7J-vi-1P3"/>
                         <viewControllerLayoutGuide type="bottom" id="1m6-Eg-WQR"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="WUJ-1M-Fup">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFc-Vq-SNz" customClass="AVPlayerView" customModule="MiniProject_1" customModuleProvider="target">
+                                <rect key="frame" x="8" y="0.0" width="584" height="600"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agg-mz-Lf2">
+                                        <rect key="frame" x="534" y="282" width="50" height="36"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="NEXT">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="mainButtons:" destination="EBC-UM-TCJ" eventType="touchUpInside" id="YU8-Ok-XSp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkf-Yf-Lf5">
+                                        <rect key="frame" x="0.0" y="282" width="51" height="36"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="PREV">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="mainButtons:" destination="EBC-UM-TCJ" eventType="touchUpInside" id="qzI-xX-DTa"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="gkf-Yf-Lf5" secondAttribute="centerY" id="8Fb-xc-9Zh"/>
+                                    <constraint firstItem="gkf-Yf-Lf5" firstAttribute="leading" secondItem="gFc-Vq-SNz" secondAttribute="leading" id="eJt-A2-A5c"/>
+                                    <constraint firstAttribute="trailing" secondItem="Agg-mz-Lf2" secondAttribute="trailing" id="otm-vv-FzV"/>
+                                    <constraint firstAttribute="centerY" secondItem="Agg-mz-Lf2" secondAttribute="centerY" id="qne-gK-4QB"/>
+                                </constraints>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <connections>
@@ -33,7 +73,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="399" y="368"/>
+            <point key="canvasLocation" x="408" y="382"/>
         </scene>
     </scenes>
 </document>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		642B30381ADE771900917899 /* AVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642B30371ADE771800917899 /* AVPlayerView.swift */; };
 		64894EA31ADBC4950019390C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64894EA21ADBC4950019390C /* AVFoundation.framework */; };
 		64B962C71AD809A10068F9D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B962C61AD809A10068F9D1 /* AppDelegate.swift */; };
 		64B962CC1AD809A10068F9D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64B962CA1AD809A10068F9D1 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		642B30371ADE771800917899 /* AVPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVPlayerView.swift; sourceTree = "<group>"; };
 		64894EA21ADBC4950019390C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		64B962C11AD809A10068F9D1 /* MiniProject 1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiniProject 1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64B962C51AD809A10068F9D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				64B962CA1AD809A10068F9D1 /* Main.storyboard */,
+				642B30371ADE771800917899 /* AVPlayerView.swift */,
 				64B962E81AD80AB70068F9D1 /* VideoViewController.swift */,
 				64B962C41AD809A10068F9D1 /* Supporting Files */,
 			);
@@ -221,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				642B30381ADE771900917899 /* AVPlayerView.swift in Sources */,
 				64B962E91AD80AB70068F9D1 /* VideoViewController.swift in Sources */,
 				64B962C71AD809A10068F9D1 /* AppDelegate.swift in Sources */,
 			);
