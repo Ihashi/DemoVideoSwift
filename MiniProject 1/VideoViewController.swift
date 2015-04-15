@@ -11,7 +11,6 @@ import AVFoundation
 
 class VideoViewController: UIViewController
 {
-    @IBOutlet weak var playerView: AVPlayerView!
     private var playerItem: AVPlayerItem?
     private var videoPlayer: AVPlayer?
     private var videoNumber = 0
@@ -20,26 +19,30 @@ class VideoViewController: UIViewController
                 "http://fun.siz.io/stories/1429021517853eac7ce1fc29/0.mp4",
                 "http://fun.siz.io/stories/1429018976114f45db3a5f88/0.mp4"]
     
-    var videoNumber = 0
+    @IBOutlet weak var playerView: AVPlayerView!
+    {
+        didSet
+        {
+            playerView.addGestureRecognizer(UIPanGestureRecognizer(target:self, action: "changeVideo:"))
+        }
+    }
     
     private struct Constants
     {
-        static let VideoGestureScale: CGFloat = 20
+        static let VideoGestureScale: CGFloat = 4
     }
     
     @IBAction func changeVideo(gesture: UIPanGestureRecognizer)
     {
+        let translation = gesture.translationInView(playerView)
+        let viewChange = -Int(translation.x / Constants.VideoGestureScale)
+        
         switch gesture.state
         {
-        case .Ended: fallthrough
-        case .Changed:
-            let translation = gesture.translationInView(videoView)
-            let viewChange = -Int(translation.x / Constants.VideoGestureScale)
-            
-            if(translation.x > 150)
+        case .Changed: fallthrough
+        case .Ended:
+            if(translation.x < -120)
             {
-                moviePlayer!.pause()
-                
                 if(videoNumber < urls.count-1)
                 {
                     videoNumber++
@@ -50,12 +53,10 @@ class VideoViewController: UIViewController
                 }
                 
                 playVideo()
-                gesture.setTranslation(CGPointZero, inView: videoView)
+                gesture.setTranslation(CGPointZero, inView: playerView)
             }
-            else if (translation.x < -150)
+            else if (translation.x > 120)
             {
-                moviePlayer!.pause()
-                
                 if(videoNumber > 0)
                 {
                     videoNumber--
@@ -66,55 +67,25 @@ class VideoViewController: UIViewController
                 }
                 
                 playVideo()
-                gesture.setTranslation(CGPointZero, inView: videoView)
+                gesture.setTranslation(CGPointZero, inView: playerView)
             }
             
             if viewChange != 0
             {
                 println("\(translation.x)")
             }
+
             
         default: break
         }
-    }
-    
-    @IBOutlet weak var videoView: UIView!
-    {
-        didSet
-        {
-            videoView.addGestureRecognizer(UIPanGestureRecognizer(target:self, action: "changeVideo:"))
-        }
-    }
-    
-    func displayButton()
-    {
-        var leftButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        leftButton.frame = CGRectMake(0, (screenSize.width/2)-20, 80, 40)
-        leftButton.backgroundColor = .blackColor()
-        leftButton.setTitle("<- Prev", forState: UIControlState.Normal)
-        leftButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        
-        let rightButton = UIButton.buttonWithType(UIButtonType.System) as! UIButton
-        rightButton.frame = CGRectMake((screenSize.height)-80, (screenSize.width/2)-20, 80, 40)
-        rightButton.backgroundColor = .blackColor()
-        rightButton.setTitle("Next ->", forState: UIControlState.Normal)
-        rightButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        
-        self.view.addSubview(leftButton)
-        self.view.addSubview(rightButton)
     }
     
     func playVideo()
     {
         let url = NSURL(string: urls[videoNumber])
         playerItem = AVPlayerItem(URL: url)
-        moviePlayer = AVPlayer(playerItem: playerItem)
-        playerLayer = AVPlayerLayer(player: moviePlayer)
-        moviePlayer!.actionAtItemEnd = .None
-        
-        playerLayer!.frame = CGRect(x: 0, y: 0, width: screenSize.height, height: screenSize.width)
-        self.view.backgroundColor = .blackColor()
-        self.view.layer.addSublayer(playerLayer)
+        videoPlayer = AVPlayer(playerItem: playerItem)
+        videoPlayer?.actionAtItemEnd = .None
         
         self.playerView.setPlayer(self.videoPlayer!)
         self.playerView.setVideoFillMode(AVLayerVideoGravityResizeAspect)

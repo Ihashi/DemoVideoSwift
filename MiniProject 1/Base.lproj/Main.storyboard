@@ -9,7 +9,6 @@
         <!--Video View Controller-->
         <scene sceneID="WM7-tG-ipw">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="blP-ne-pvE" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController wantsFullScreenLayout="YES" id="EBC-UM-TCJ" customClass="VideoViewController" customModule="MiniProject_1" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="o7J-vi-1P3"/>
@@ -20,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFc-Vq-SNz" customClass="AVPlayerView" customModule="MiniProject_1" customModuleProvider="target">
-                                <rect key="frame" x="8" y="0.0" width="584" height="600"/>
+                                <rect key="frame" x="8" y="0.0" width="584" height="620"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agg-mz-Lf2">
-                                        <rect key="frame" x="534" y="282" width="50" height="36"/>
+                                        <rect key="frame" x="534" y="292" width="50" height="36"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="NEXT">
@@ -35,7 +34,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkf-Yf-Lf5">
-                                        <rect key="frame" x="0.0" y="282" width="51" height="36"/>
+                                        <rect key="frame" x="0.0" y="292" width="51" height="36"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="PREV">
@@ -57,21 +56,19 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="7cU-6c-nam" appends="YES" id="1mt-HJ-Har"/>
-                        </connections>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="gFc-Vq-SNz" secondAttribute="trailing" constant="-8" id="So8-N3-wrW"/>
+                            <constraint firstItem="1m6-Eg-WQR" firstAttribute="top" secondItem="gFc-Vq-SNz" secondAttribute="bottom" constant="-20" id="XTO-JU-uee"/>
+                            <constraint firstItem="gFc-Vq-SNz" firstAttribute="top" secondItem="o7J-vi-1P3" secondAttribute="bottom" constant="-20" id="ajy-7z-YVO"/>
+                            <constraint firstItem="gFc-Vq-SNz" firstAttribute="leading" secondItem="WUJ-1M-Fup" secondAttribute="leadingMargin" constant="-8" id="zLT-sM-Hw7"/>
+                        </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
-                        <outlet property="videoView" destination="WUJ-1M-Fup" id="LOZ-bA-AOX"/>
+                        <outlet property="playerView" destination="gFc-Vq-SNz" id="wWl-GC-8iF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="blP-ne-pvE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="7cU-6c-nam">
-                    <connections>
-                        <action selector="changeVideo:" destination="EBC-UM-TCJ" id="ulE-1q-pRv"/>
-                    </connections>
-                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="408" y="382"/>
         </scene>
