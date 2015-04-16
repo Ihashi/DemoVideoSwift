@@ -29,17 +29,21 @@ class VideoViewController: UIViewController
     
     private struct Constants
     {
-        static let VideoGestureScale: CGFloat = 4
+        static let VideoGestureScale: CGFloat = 60
     }
     
     @IBAction func changeVideo(gesture: UIPanGestureRecognizer)
     {
-        let translation = gesture.translationInView(playerView)
-        let viewChange = -Int(translation.x / Constants.VideoGestureScale)
+        let translation = gesture.translationInView(view)
+        let viewChange = translation.x / Constants.VideoGestureScale
         
         switch gesture.state
         {
-        case .Changed: fallthrough
+        case .Changed:
+            if let view = gesture.view
+            {
+                view.center = CGPoint(x: view.center.x + viewChange, y: view.center.y)
+            }
         case .Ended:
             if(translation.x < -120)
             {
@@ -53,7 +57,6 @@ class VideoViewController: UIViewController
                 }
                 
                 playVideo()
-                gesture.setTranslation(CGPointZero, inView: playerView)
             }
             else if (translation.x > 120)
             {
@@ -67,15 +70,10 @@ class VideoViewController: UIViewController
                 }
                 
                 playVideo()
-                gesture.setTranslation(CGPointZero, inView: playerView)
-            }
-            
-            if viewChange != 0
-            {
-                println("\(translation.x)")
             }
 
-            
+            gesture.view?.center = CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height/2)
+            gesture.setTranslation(CGPointZero, inView: view)
         default: break
         }
     }
