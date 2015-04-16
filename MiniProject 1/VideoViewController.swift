@@ -30,6 +30,7 @@ class VideoViewController: UIViewController
     
     private var videoPlayer: AVPlayer?
     private var videoNumber = 0
+    private var movingCount: CGFloat = 0
     private var urls = ["http://fun.siz.io/stories/142893791787803c7fb48f4d/0.mp4",
                 "http://fun.siz.io/stories/1429024267698bb127fbd1bf/0.mp4",
                 "http://fun.siz.io/stories/1429021517853eac7ce1fc29/0.mp4",
@@ -42,57 +43,52 @@ class VideoViewController: UIViewController
             playerView.addGestureRecognizer(UIPanGestureRecognizer(target:self, action: "changeVideo:"))
         }
     }
-    
-    private struct Constants
-    {
-        static let VideoGestureScale: CGFloat = 40
-    }
 
-    @IBAction func changeVideoButtons(sender: UIButton)
+    @IBAction func previousVideo()
     {
-        if let buttonName = sender.currentTitle
+        if(videoNumber > 0)
         {
-            switch buttonName
-            {
-            case"PREV":
-                if(videoNumber > 0)
-                {
-                    videoNumber--
-                }
-                else if(videoNumber == 0)
-                {
-                    videoNumber = urls.count-1
-                }
-            case"NEXT":
-                if(videoNumber < urls.count-1)
-                {
-                    videoNumber++
-                }
-                else if(videoNumber == urls.count-1)
-                {
-                    videoNumber = 0
-                }
-            default: break
-            }
-        
-            playVideo()
+            videoNumber--
         }
+        else if(videoNumber == 0)
+        {
+            videoNumber = urls.count-1
+        }
+        
+        playVideo()
+    }
+    
+    @IBAction func nextVideo()
+    {
+        if(videoNumber < urls.count-1)
+        {
+            videoNumber++
+        }
+        else if(videoNumber == urls.count-1)
+        {
+            videoNumber = 0
+        }
+        
+        playVideo()
     }
     
     @IBAction func changeVideo(gesture: UIPanGestureRecognizer)
     {
         let translation = gesture.translationInView(view)
-        let viewChange = translation.x / Constants.VideoGestureScale
         
         switch gesture.state
         {
         case .Changed:
             if let view = gesture.view
             {
-                view.center = CGPoint(x: view.center.x + viewChange, y: view.center.y)
+                println("\(translation.x)")
+                println("\(movingCount)")
+                movingCount += translation.x
+                view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y)
+                gesture.setTranslation(CGPointZero, inView: view)
             }
         case .Ended:
-            if (translation.x > 120)
+            if (movingCount > 120)
             {
                 if(videoNumber > 0)
                 {
@@ -105,7 +101,7 @@ class VideoViewController: UIViewController
                 
                 playVideo()
             }
-            else if(translation.x < -120)
+            else if(movingCount < -120)
             {
                 if(videoNumber < urls.count-1)
                 {
@@ -118,9 +114,8 @@ class VideoViewController: UIViewController
                 
                 playVideo()
             }
-
-            println("\(translation.x)")
             
+            movingCount = 0
             gesture.view?.center = CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height/2)
             gesture.setTranslation(CGPointZero, inView: view)
         default: break
