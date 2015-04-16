@@ -7,12 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		642B30381ADE771900917899 /* AVPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 642B30371ADE771800917899 /* AVPlayerView.swift */; };
+		64894EA31ADBC4950019390C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64894EA21ADBC4950019390C /* AVFoundation.framework */; };
 		64B962C71AD809A10068F9D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B962C61AD809A10068F9D1 /* AppDelegate.swift */; };
-		64B962C91AD809A10068F9D1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B962C81AD809A10068F9D1 /* ViewController.swift */; };
 		64B962CC1AD809A10068F9D1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64B962CA1AD809A10068F9D1 /* Main.storyboard */; };
 		64B962CE1AD809A10068F9D1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64B962CD1AD809A10068F9D1 /* Images.xcassets */; };
 		64B962D11AD809A10068F9D1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64B962CF1AD809A10068F9D1 /* LaunchScreen.xib */; };
 		64B962DD1AD809A10068F9D1 /* MiniProject_1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B962DC1AD809A10068F9D1 /* MiniProject_1Tests.swift */; };
+		64B962E71AD809F90068F9D1 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 64B962E61AD809F90068F9D1 /* .gitignore */; };
+		64B962E91AD80AB70068F9D1 /* VideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64B962E81AD80AB70068F9D1 /* VideoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -26,16 +29,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		642B30371ADE771800917899 /* AVPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AVPlayerView.swift; sourceTree = "<group>"; };
+		64894EA21ADBC4950019390C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		64B962C11AD809A10068F9D1 /* MiniProject 1.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MiniProject 1.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64B962C51AD809A10068F9D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64B962C61AD809A10068F9D1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		64B962C81AD809A10068F9D1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		64B962CB1AD809A10068F9D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		64B962CD1AD809A10068F9D1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		64B962D01AD809A10068F9D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		64B962D61AD809A10068F9D1 /* MiniProject 1Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "MiniProject 1Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64B962DB1AD809A10068F9D1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64B962DC1AD809A10068F9D1 /* MiniProject_1Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiniProject_1Tests.swift; sourceTree = "<group>"; };
+		64B962E61AD809F90068F9D1 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		64B962E81AD80AB70068F9D1 /* VideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64894EA31ADBC4950019390C /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +66,8 @@
 		64B962B81AD809A10068F9D1 = {
 			isa = PBXGroup;
 			children = (
+				64894EA21ADBC4950019390C /* AVFoundation.framework */,
+				64B962E61AD809F90068F9D1 /* .gitignore */,
 				64B962C31AD809A10068F9D1 /* MiniProject 1 */,
 				64B962D91AD809A10068F9D1 /* MiniProject 1Tests */,
 				64B962C21AD809A10068F9D1 /* Products */,
@@ -77,11 +86,9 @@
 		64B962C31AD809A10068F9D1 /* MiniProject 1 */ = {
 			isa = PBXGroup;
 			children = (
-				64B962C61AD809A10068F9D1 /* AppDelegate.swift */,
-				64B962C81AD809A10068F9D1 /* ViewController.swift */,
 				64B962CA1AD809A10068F9D1 /* Main.storyboard */,
-				64B962CD1AD809A10068F9D1 /* Images.xcassets */,
-				64B962CF1AD809A10068F9D1 /* LaunchScreen.xib */,
+				642B30371ADE771800917899 /* AVPlayerView.swift */,
+				64B962E81AD80AB70068F9D1 /* VideoViewController.swift */,
 				64B962C41AD809A10068F9D1 /* Supporting Files */,
 			);
 			path = "MiniProject 1";
@@ -90,6 +97,9 @@
 		64B962C41AD809A10068F9D1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				64B962C61AD809A10068F9D1 /* AppDelegate.swift */,
+				64B962CF1AD809A10068F9D1 /* LaunchScreen.xib */,
+				64B962CD1AD809A10068F9D1 /* Images.xcassets */,
 				64B962C51AD809A10068F9D1 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -161,6 +171,7 @@
 				TargetAttributes = {
 					64B962C01AD809A10068F9D1 = {
 						CreatedOnToolsVersion = 6.3;
+						DevelopmentTeam = 7D5G4U829D;
 					};
 					64B962D51AD809A10068F9D1 = {
 						CreatedOnToolsVersion = 6.3;
@@ -192,6 +203,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				64B962E71AD809F90068F9D1 /* .gitignore in Resources */,
 				64B962CC1AD809A10068F9D1 /* Main.storyboard in Resources */,
 				64B962D11AD809A10068F9D1 /* LaunchScreen.xib in Resources */,
 				64B962CE1AD809A10068F9D1 /* Images.xcassets in Resources */,
@@ -212,7 +224,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64B962C91AD809A10068F9D1 /* ViewController.swift in Sources */,
+				642B30381ADE771900917899 /* AVPlayerView.swift in Sources */,
+				64B962E91AD80AB70068F9D1 /* VideoViewController.swift in Sources */,
 				64B962C71AD809A10068F9D1 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -291,7 +304,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -330,7 +343,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -342,9 +355,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "MiniProject 1/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -352,9 +369,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = "MiniProject 1/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -411,6 +432,7 @@
 				64B962E21AD809A10068F9D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		64B962E31AD809A10068F9D1 /* Build configuration list for PBXNativeTarget "MiniProject 1Tests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +441,7 @@
 				64B962E51AD809A10068F9D1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
