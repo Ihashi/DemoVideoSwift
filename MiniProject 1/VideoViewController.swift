@@ -13,6 +13,21 @@ class VideoViewController: UIViewController
 {
     @IBOutlet weak var playerView: AVPlayerView!
     private var playerItem: AVPlayerItem?
+    {
+        willSet
+        {
+            NSNotificationCenter.defaultCenter().removeObserver(self,
+                name: AVPlayerItemDidPlayToEndTimeNotification,
+                object: videoPlayer?.currentItem)
+        }
+        didSet
+        {
+            NSNotificationCenter.defaultCenter().addObserver(self,
+                selector: "restartVideo",
+                name: AVPlayerItemDidPlayToEndTimeNotification,
+                object: videoPlayer?.currentItem)
+        }
+    }
     private var videoPlayer: AVPlayer?
     private var videoNumber = 0
     private var urls = ["http://fun.siz.io/stories/142893791787803c7fb48f4d/0.mp4",
@@ -22,32 +37,33 @@ class VideoViewController: UIViewController
     
     @IBAction func mainButtons(sender: UIButton)
     {
-        let buttonName = sender.currentTitle!
-        
-        switch buttonName
+        if let buttonName = sender.currentTitle
         {
-        case"PREV":
-            if(videoNumber > 0)
+            switch buttonName
             {
-                videoNumber--
+            case"PREV":
+                if(videoNumber > 0)
+                {
+                    videoNumber--
+                }
+                else if(videoNumber == 0)
+                {
+                    videoNumber = urls.count-1
+                }
+            case"NEXT":
+                if(videoNumber < urls.count-1)
+                {
+                    videoNumber++
+                }
+                else if(videoNumber == urls.count-1)
+                {
+                    videoNumber = 0
+                }
+            default: break
             }
-            else if(videoNumber == 0)
-            {
-                videoNumber = urls.count-1
-            }
-        case"NEXT":
-            if(videoNumber < urls.count-1)
-            {
-                videoNumber++
-            }
-            else if(videoNumber == urls.count-1)
-            {
-                videoNumber = 0
-            }
-        default: break
-        }
         
-        playVideo()
+            playVideo()
+        }
     }
     
     func playVideo()
@@ -55,17 +71,15 @@ class VideoViewController: UIViewController
         let url = NSURL(string: urls[videoNumber])
         playerItem = AVPlayerItem(URL: url)
         videoPlayer = AVPlayer(playerItem: playerItem)
-        videoPlayer?.actionAtItemEnd = .None
         
-        self.playerView.setPlayer(self.videoPlayer!)
-        self.playerView.setVideoFillMode(AVLayerVideoGravityResizeAspect)
+        if let item = playerItem, player = videoPlayer
+        {
+            player.actionAtItemEnd = .None
+            playerView.setPlayer(videoPlayer!)
+            playerView.setVideoFillMode(AVLayerVideoGravityResizeAspect)
 
-        videoPlayer?.play()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "restartVideo",
-            name: AVPlayerItemDidPlayToEndTimeNotification,
-            object: videoPlayer?.currentItem)
+            player.play()
+        }
     }
     
     func restartVideo()
@@ -74,8 +88,11 @@ class VideoViewController: UIViewController
         let preferredTimeScale : Int32 = 1
         let seekTime : CMTime = CMTimeMake(seconds, preferredTimeScale)
         
-        videoPlayer?.seekToTime(seekTime)
-        videoPlayer?.play()
+        if let player = videoPlayer
+        {
+            player.seekToTime(seekTime)
+            player.play()
+        }
     }
     
     override func viewWillAppear(animated: Bool)
