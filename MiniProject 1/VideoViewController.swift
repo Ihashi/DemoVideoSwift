@@ -12,6 +12,22 @@ import AVFoundation
 class VideoViewController: UIViewController
 {
     private var playerItem: AVPlayerItem?
+    {
+        willSet
+        {
+            NSNotificationCenter.defaultCenter().removeObserver(self,
+            name: AVPlayerItemDidPlayToEndTimeNotification,
+            object: videoPlayer?.currentItem)
+        }
+        didSet
+        {
+            NSNotificationCenter.defaultCenter().addObserver(self,
+            selector: "restartVideo",
+            name: AVPlayerItemDidPlayToEndTimeNotification,
+            object: videoPlayer?.currentItem)
+        }
+    }
+    
     private var videoPlayer: AVPlayer?
     private var videoNumber = 0
     private var urls = ["http://fun.siz.io/stories/142893791787803c7fb48f4d/0.mp4",
@@ -29,7 +45,38 @@ class VideoViewController: UIViewController
     
     private struct Constants
     {
-        static let VideoGestureScale: CGFloat = 60
+        static let VideoGestureScale: CGFloat = 40
+    }
+
+    @IBAction func changeVideoButtons(sender: UIButton)
+    {
+        if let buttonName = sender.currentTitle
+        {
+            switch buttonName
+            {
+            case"PREV":
+                if(videoNumber > 0)
+                {
+                    videoNumber--
+                }
+                else if(videoNumber == 0)
+                {
+                    videoNumber = urls.count-1
+                }
+            case"NEXT":
+                if(videoNumber < urls.count-1)
+                {
+                    videoNumber++
+                }
+                else if(videoNumber == urls.count-1)
+                {
+                    videoNumber = 0
+                }
+            default: break
+            }
+        
+            playVideo()
+        }
     }
     
     @IBAction func changeVideo(gesture: UIPanGestureRecognizer)
@@ -45,20 +92,7 @@ class VideoViewController: UIViewController
                 view.center = CGPoint(x: view.center.x + viewChange, y: view.center.y)
             }
         case .Ended:
-            if(translation.x < -120)
-            {
-                if(videoNumber < urls.count-1)
-                {
-                    videoNumber++
-                }
-                else if(videoNumber == urls.count-1)
-                {
-                    videoNumber = 0
-                }
-                
-                playVideo()
-            }
-            else if (translation.x > 120)
+            if (translation.x > 120)
             {
                 if(videoNumber > 0)
                 {
@@ -71,7 +105,22 @@ class VideoViewController: UIViewController
                 
                 playVideo()
             }
+            else if(translation.x < -120)
+            {
+                if(videoNumber < urls.count-1)
+                {
+                    videoNumber++
+                }
+                else if(videoNumber == urls.count-1)
+                {
+                    videoNumber = 0
+                }
+                
+                playVideo()
+            }
 
+            println("\(translation.x)")
+            
             gesture.view?.center = CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height/2)
             gesture.setTranslation(CGPointZero, inView: view)
         default: break
@@ -83,17 +132,15 @@ class VideoViewController: UIViewController
         let url = NSURL(string: urls[videoNumber])
         playerItem = AVPlayerItem(URL: url)
         videoPlayer = AVPlayer(playerItem: playerItem)
-        videoPlayer?.actionAtItemEnd = .None
         
-        self.playerView.setPlayer(self.videoPlayer!)
-        self.playerView.setVideoFillMode(AVLayerVideoGravityResizeAspect)
-
-        videoPlayer?.play()
-        
-        NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "restartVideo",
-            name: AVPlayerItemDidPlayToEndTimeNotification,
-            object: videoPlayer?.currentItem)
+        if let item = playerItem, player = videoPlayer
+        {
+            player.actionAtItemEnd = .None
+            playerView.setPlayer(player)
+            playerView.setVideoFillMode(AVLayerVideoGravityResizeAspect)
+            
+            player.play()
+        }
     }
     
     func restartVideo()
@@ -102,8 +149,11 @@ class VideoViewController: UIViewController
         let preferredTimeScale : Int32 = 1
         let seekTime : CMTime = CMTimeMake(seconds, preferredTimeScale)
         
-        videoPlayer?.seekToTime(seekTime)
-        videoPlayer?.play()
+        if let player = videoPlayer
+        {
+            player.seekToTime(seekTime)
+            player.play()
+        }
     }
     
     override func viewWillAppear(animated: Bool)
