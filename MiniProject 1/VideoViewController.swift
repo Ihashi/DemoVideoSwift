@@ -37,12 +37,6 @@ class VideoViewController: UIViewController
                 "http://fun.siz.io/stories/1429018976114f45db3a5f88/0.mp4"]
     
     @IBOutlet weak var playerView: AVPlayerView!
-    {
-        didSet
-        {
-            playerView.addGestureRecognizer(UIPanGestureRecognizer(target:self, action: "changeVideo:"))
-        }
-    }
 
     @IBAction func previousVideo()
     {
@@ -81,8 +75,8 @@ class VideoViewController: UIViewController
         case .Changed:
             if let view = gesture.view
             {
-                println("\(translation.x)")
-                println("\(movingCount)")
+                println("Translation.x = \(translation.x)")
+                println("MovingCount = \(movingCount)")
                 movingCount += translation.x
                 view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y)
                 gesture.setTranslation(CGPointZero, inView: view)
@@ -90,29 +84,11 @@ class VideoViewController: UIViewController
         case .Ended:
             if (movingCount > 120)
             {
-                if(videoNumber > 0)
-                {
-                    videoNumber--
-                }
-                else if(videoNumber == 0)
-                {
-                    videoNumber = urls.count-1
-                }
-                
-                playVideo()
+                previousVideo()
             }
             else if(movingCount < -120)
             {
-                if(videoNumber < urls.count-1)
-                {
-                    videoNumber++
-                }
-                else if(videoNumber == urls.count-1)
-                {
-                    videoNumber = 0
-                }
-                
-                playVideo()
+                nextVideo()
             }
             
             movingCount = 0
@@ -128,7 +104,7 @@ class VideoViewController: UIViewController
         playerItem = AVPlayerItem(URL: url)
         videoPlayer = AVPlayer(playerItem: playerItem)
         
-        if let item = playerItem, player = videoPlayer
+        if let player = videoPlayer
         {
             player.actionAtItemEnd = .None
             playerView.setPlayer(player)
@@ -144,11 +120,8 @@ class VideoViewController: UIViewController
         let preferredTimeScale : Int32 = 1
         let seekTime : CMTime = CMTimeMake(seconds, preferredTimeScale)
         
-        if let player = videoPlayer
-        {
-            player.seekToTime(seekTime)
-            player.play()
-        }
+        videoPlayer?.seekToTime(seekTime)
+        videoPlayer?.play()
     }
     
     override func viewWillAppear(animated: Bool)
