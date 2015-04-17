@@ -17,15 +17,15 @@ class VideoViewController: UIViewController
         willSet
         {
             NSNotificationCenter.defaultCenter().removeObserver(self,
-            name: AVPlayerItemDidPlayToEndTimeNotification,
-            object: videoPlayer?.currentItem)
+                name: AVPlayerItemDidPlayToEndTimeNotification,
+                object: videoPlayer?.currentItem)
         }
         didSet
         {
             NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "restartVideo",
-            name: AVPlayerItemDidPlayToEndTimeNotification,
-            object: videoPlayer?.currentItem)
+                selector: "restartVideo",
+                name: AVPlayerItemDidPlayToEndTimeNotification,
+                object: videoPlayer?.currentItem)
         }
     }
     private var videoPlayer: AVPlayer?
@@ -108,7 +108,7 @@ class VideoViewController: UIViewController
             player.actionAtItemEnd = .None
             playerView.setPlayer(player)
             playerView.setVideoFillMode(AVLayerVideoGravityResizeAspect)
-            
+
             player.play()
         }
     }
@@ -119,11 +119,8 @@ class VideoViewController: UIViewController
         let preferredTimeScale : Int32 = 1
         let seekTime : CMTime = CMTimeMake(seconds, preferredTimeScale)
         
-        if let player = videoPlayer
-        {
-            player.seekToTime(seekTime)
-            player.play()
-        }
+        videoPlayer?.seekToTime(seekTime)
+        videoPlayer?.play()
     }
     
     override func viewWillAppear(animated: Bool)
