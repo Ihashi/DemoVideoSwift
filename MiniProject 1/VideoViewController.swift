@@ -119,8 +119,11 @@ class VideoViewController: UIViewController
         let preferredTimeScale : Int32 = 1
         let seekTime : CMTime = CMTimeMake(seconds, preferredTimeScale)
         
-        videoPlayer?.seekToTime(seekTime)
-        videoPlayer?.play()
+        if let player = videoPlayer
+        {
+            player.seekToTime(seekTime)
+            player.play()
+        }
     }
     
     override func viewWillAppear(animated: Bool)
