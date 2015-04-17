@@ -11,7 +11,7 @@ import AVFoundation
 
 class VideoViewController: UIViewController
 {
-    @IBOutlet weak var playerView: AVPlayerView!
+    @IBOutlet weak var playerView: AVPlayerView?
     private var playerItem: AVPlayerItem?
     {
         willSet
@@ -106,8 +106,8 @@ class VideoViewController: UIViewController
         if let player = videoPlayer
         {
             player.actionAtItemEnd = .None
-            playerView.setPlayer(player)
-            playerView.setVideoFillMode(AVLayerVideoGravityResizeAspect)
+            playerView?.setPlayer(player)
+            playerView?.setVideoFillMode(AVLayerVideoGravityResizeAspect)
 
             player.play()
         }
@@ -115,9 +115,9 @@ class VideoViewController: UIViewController
     
     func restartVideo()
     {
-        let seconds : Int64 = 0
-        let preferredTimeScale : Int32 = 1
-        let seekTime : CMTime = CMTimeMake(seconds, preferredTimeScale)
+        let seconds: Int64 = 0
+        let preferredTimeScale: Int32 = 1
+        let seekTime: CMTime = CMTimeMake(seconds, preferredTimeScale)
         
         videoPlayer?.seekToTime(seekTime)
         videoPlayer?.play()
