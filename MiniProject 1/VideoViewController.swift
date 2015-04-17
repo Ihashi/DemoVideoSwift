@@ -11,6 +11,7 @@ import AVFoundation
 
 class VideoViewController: UIViewController
 {
+    @IBOutlet weak var playerView: AVPlayerView!
     private var playerItem: AVPlayerItem?
     {
         willSet
@@ -27,16 +28,14 @@ class VideoViewController: UIViewController
             object: videoPlayer?.currentItem)
         }
     }
-    
     private var videoPlayer: AVPlayer?
     private var videoNumber = 0
-    private var movingCount: CGFloat = 0
     private var urls = ["http://fun.siz.io/stories/142893791787803c7fb48f4d/0.mp4",
                 "http://fun.siz.io/stories/1429024267698bb127fbd1bf/0.mp4",
                 "http://fun.siz.io/stories/1429021517853eac7ce1fc29/0.mp4",
                 "http://fun.siz.io/stories/1429018976114f45db3a5f88/0.mp4"]
     
-    @IBOutlet weak var playerView: AVPlayerView!
+    private var movingCount: CGFloat = 0
 
     @IBAction func previousVideo()
     {
