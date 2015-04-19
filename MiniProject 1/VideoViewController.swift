@@ -11,7 +11,7 @@ import AVFoundation
 
 class VideoViewController: UIViewController
 {
-    @IBOutlet weak var playerView: AVPlayerView!
+    @IBOutlet weak var playerView: AVPlayerView?
     private var playerItem: AVPlayerItem?
     {
         willSet
@@ -35,34 +35,65 @@ class VideoViewController: UIViewController
                 "http://fun.siz.io/stories/1429021517853eac7ce1fc29/0.mp4",
                 "http://fun.siz.io/stories/1429018976114f45db3a5f88/0.mp4"]
     
-    @IBAction func mainButtons(sender: UIButton)
+    private var movingCount: CGFloat = 0
+
+    @IBAction func previousVideo()
     {
-        if let buttonName = sender.currentTitle
+        if(videoNumber > 0)
         {
-            switch buttonName
-            {
-            case"PREV":
-                if(videoNumber > 0)
-                {
-                    videoNumber--
-                }
-                else if(videoNumber == 0)
-                {
-                    videoNumber = urls.count-1
-                }
-            case"NEXT":
-                if(videoNumber < urls.count-1)
-                {
-                    videoNumber++
-                }
-                else if(videoNumber == urls.count-1)
-                {
-                    videoNumber = 0
-                }
-            default: break
-            }
+            videoNumber--
+        }
+        else if(videoNumber == 0)
+        {
+            videoNumber = urls.count-1
+        }
         
-            playVideo()
+        playVideo()
+    }
+    
+    @IBAction func nextVideo()
+    {
+        if(videoNumber < urls.count-1)
+        {
+            videoNumber++
+        }
+        else if(videoNumber == urls.count-1)
+        {
+            videoNumber = 0
+        }
+        
+        playVideo()
+    }
+    
+    @IBAction func changeVideo(gesture: UIPanGestureRecognizer)
+    {
+        let translation = gesture.translationInView(view)
+        
+        switch gesture.state
+        {
+        case .Changed:
+            if let view = gesture.view
+            {
+                println("Translation.x = \(translation.x)")
+                println("MovingCount = \(movingCount)")
+                movingCount += translation.x
+                view.center = CGPoint(x: view.center.x + translation.x, y: view.center.y)
+                gesture.setTranslation(CGPointZero, inView: view)
+            }
+        case .Ended:
+            if (movingCount > 120)
+            {
+                previousVideo()
+            }
+            else if(movingCount < -120)
+            {
+                nextVideo()
+            }
+            
+            movingCount = 0
+            gesture.view?.center = CGPoint(x: self.view.bounds.width/2, y: self.view.bounds.height/2)
+            gesture.setTranslation(CGPointZero, inView: view)
+        default: break
         }
     }
     
@@ -72,11 +103,11 @@ class VideoViewController: UIViewController
         playerItem = AVPlayerItem(URL: url)
         videoPlayer = AVPlayer(playerItem: playerItem)
         
-        if let item = playerItem, player = videoPlayer
+        if let player = videoPlayer
         {
             player.actionAtItemEnd = .None
-            playerView.setPlayer(videoPlayer!)
-            playerView.setVideoFillMode(AVLayerVideoGravityResizeAspect)
+            playerView?.setPlayer(player)
+            playerView?.setVideoFillMode(AVLayerVideoGravityResizeAspect)
 
             player.play()
         }
@@ -84,15 +115,12 @@ class VideoViewController: UIViewController
     
     func restartVideo()
     {
-        let seconds : Int64 = 0
-        let preferredTimeScale : Int32 = 1
-        let seekTime : CMTime = CMTimeMake(seconds, preferredTimeScale)
+        let seconds: Int64 = 0
+        let preferredTimeScale: Int32 = 1
+        let seekTime: CMTime = CMTimeMake(seconds, preferredTimeScale)
         
-        if let player = videoPlayer
-        {
-            player.seekToTime(seekTime)
-            player.play()
-        }
+        videoPlayer?.seekToTime(seekTime)
+        videoPlayer?.play()
     }
     
     override func viewWillAppear(animated: Bool)

@@ -20,19 +20,11 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFc-Vq-SNz" customClass="AVPlayerView" customModule="MiniProject_1" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="20" width="600" height="580"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agg-mz-Lf2">
-                                <rect key="frame" x="550" y="282" width="50" height="36"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="NEXT">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <gestureRecognizers/>
                                 <connections>
-                                    <action selector="mainButtons:" destination="EBC-UM-TCJ" eventType="touchUpInside" id="wfK-aj-uHM"/>
+                                    <outletCollection property="gestureRecognizers" destination="Hnn-AP-jcB" appends="YES" id="FTo-kB-Gq4"/>
                                 </connections>
-                            </button>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gkf-Yf-Lf5">
                                 <rect key="frame" x="0.0" y="282" width="51" height="36"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -42,19 +34,31 @@
                                     <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="mainButtons:" destination="EBC-UM-TCJ" eventType="touchUpInside" id="9I9-ln-Zc1"/>
+                                    <action selector="previousVideo" destination="EBC-UM-TCJ" eventType="touchUpInside" id="T6a-cN-Kdv"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Agg-mz-Lf2">
+                                <rect key="frame" x="550" y="282" width="50" height="36"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="NEXT">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextVideo" destination="EBC-UM-TCJ" eventType="touchUpInside" id="fkr-Pw-a8X"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="centerY" secondItem="gkf-Yf-Lf5" secondAttribute="centerY" id="Dpn-46-jqV"/>
+                            <constraint firstAttribute="trailing" secondItem="Agg-mz-Lf2" secondAttribute="trailing" id="Rwr-Tl-WzP"/>
                             <constraint firstAttribute="trailing" secondItem="gFc-Vq-SNz" secondAttribute="trailing" id="So8-N3-wrW"/>
-                            <constraint firstAttribute="centerY" secondItem="gkf-Yf-Lf5" secondAttribute="centerY" id="UUU-44-yyI"/>
+                            <constraint firstAttribute="centerY" secondItem="Agg-mz-Lf2" secondAttribute="centerY" id="Uzn-yd-172"/>
                             <constraint firstItem="1m6-Eg-WQR" firstAttribute="top" secondItem="gFc-Vq-SNz" secondAttribute="bottom" id="XTO-JU-uee"/>
                             <constraint firstItem="gFc-Vq-SNz" firstAttribute="top" secondItem="o7J-vi-1P3" secondAttribute="bottom" id="ajy-7z-YVO"/>
-                            <constraint firstAttribute="centerY" secondItem="Agg-mz-Lf2" secondAttribute="centerY" id="i0V-z6-U49"/>
-                            <constraint firstItem="gkf-Yf-Lf5" firstAttribute="leading" secondItem="WUJ-1M-Fup" secondAttribute="leading" id="oCi-82-hrg"/>
-                            <constraint firstAttribute="trailing" secondItem="Agg-mz-Lf2" secondAttribute="trailing" id="unU-hr-8Bj"/>
+                            <constraint firstItem="gkf-Yf-Lf5" firstAttribute="leading" secondItem="WUJ-1M-Fup" secondAttribute="leading" id="jXd-dz-NUL"/>
                             <constraint firstItem="gFc-Vq-SNz" firstAttribute="leading" secondItem="WUJ-1M-Fup" secondAttribute="leading" id="zLT-sM-Hw7"/>
                         </constraints>
                     </view>
@@ -64,6 +68,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="blP-ne-pvE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Hnn-AP-jcB">
+                    <connections>
+                        <action selector="changeVideo:" destination="EBC-UM-TCJ" id="0LD-Si-IR4"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="408" y="382"/>
         </scene>
